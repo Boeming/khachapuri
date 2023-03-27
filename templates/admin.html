@@ -1,0 +1,131 @@
+{% extends 'base.html' %}
+
+{% block title %} Админ панель {% endblock %}
+
+{% block content %}
+<div class="accordion" style="min-height: 620px" id="accordionAdmin">
+  {% for i in range(0, len_of_recipes) %}
+    <div class="accordion-item">
+      <h2 class="accordion-header">
+        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapse{{ i }}" aria-expanded="false" aria-controls="collapse{{ i }}">
+          {{ i+1 }}. "{{ Dish[i][0] }}" от "Автор"
+        </button>
+      </h2>
+      <div id="collapse{{ i }}" class="accordion-collapse collapse" data-bs-parent="#accordionAdmin">
+        <div class="accordion-body">
+          <div class="recipe-block container my-5 py-3 px-4">
+            <div class="row justify-content-center ">
+              <div class="col-6 d-none d-lg-block m-auto">
+                <div id="carouselMain1" class="carousel slide">
+                  <div class="carousel-indicators">
+                    <button type="button" data-bs-target="#carouselMain1" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
+                    <button type="button" data-bs-target="#carouselMain1" data-bs-slide-to="1" aria-label="Slide 2"></button>
+                    <button type="button" data-bs-target="#carouselMain1" data-bs-slide-to="2" aria-label="Slide 3"></button>
+                  </div>
+                  <div class="carousel-inner">
+                    <div class="carousel-item active">
+                      <img src="{{ url_for('static', filename=Dish[i][4]) }}" class="d-block w-100" alt="...">
+                    </div>
+                  </div>
+                  <button class="carousel-control-prev" type="button" data-bs-target="#carouselMain" data-bs-slide="prev">
+                    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                    <span class="visually-hidden">Previous</span>
+                  </button>
+                  <button class="carousel-control-next" type="button" data-bs-target="#carouselMain" data-bs-slide="next">
+                    <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                    <span class="visually-hidden">Next</span>
+                  </button>
+                </div>
+              </div>
+              <div class="col-lg-6 col-sm-12">
+                <div>
+                  <div class="d-flex justify-content-between">
+                    <span class="dish-name">{{ Dish[i][0] }}</span>
+                    <span>Рейтинг - <span class='rating'>{{ Dish[i][2] }}</span> <i class="fa-solid fa-star" style="color: #ffcf48;"></i></span>
+                  </div>
+                  <hr>
+                  <div class="d-flex justify-content-between">
+                    <span>Список продуктов: </span>
+                    <span>Количество</span>
+                  </div>
+                  <div class="products-list d-flex justify-content-between">
+                    <ul>
+                      {% for j in range(0, len_of_quantity[i]) %}
+                        <li>
+                          <span class="product">{{ Products[i][j][0][0] }}</span>
+                          <span class="product-amount">{{ Quantity[i][j][1] }}</span>
+                        </li>
+                      {% endfor %}
+                    </ul>
+                  </div>
+                  <div class="extra-info">
+                    <div>Время приготовления - <span class="time">{{ Dish[i][6] }} мин.</span></div>
+                    <div>Калорийность - <span class="calories">{{ Dish[i][5] }}</span> ккал. на 100гр.</div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="accordion py-4" id="accordionPanelsStayOpenExample1">
+              <div class="accordion-item">
+                <h2 class="accordion-header" id="panelsStayOpen-headingOne1">
+                  <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#panelsStayOpen-collapseOne1" aria-expanded="false" aria-controls="panelsStayOpen-collapseOne1">
+                    Описание
+                  </button>
+                </h2>
+                <div id="panelsStayOpen-collapseOne1" class="accordion-collapse collapse" aria-labelledby="panelsStayOpen-headingOn1e">
+                  <div class="accordion-body recipe-description">
+                    {{ Dish[i][1] }}
+                  </div>
+                </div>
+              </div>
+              <div class="accordion-item">
+                <h2 class="accordion-header" id="panelsStayOpen-headingTwo1">
+                  <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#panelsStayOpen-collapseTwo1" aria-expanded="false" aria-controls="panelsStayOpen-collapseTwo1">
+                    История
+                  </button>
+                </h2>
+                <div id="panelsStayOpen-collapseTwo1" class="accordion-collapse collapse" aria-labelledby="panelsStayOpen-headingTwo1">
+                  <div class="accordion-body recipe-history">
+                    {{ Dish[i][3] }}
+                  </div>
+                </div>
+              </div>
+              <div class="accordion-item">
+                <h2 class="accordion-header" id="panelsStayOpen-headingThree1">
+                  <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#panelsStayOpen-collapseThree1" aria-expanded="true" aria-controls="panelsStayOpen-collapseThree1">
+                    Этапы приготовления
+                  </button>
+                </h2>
+                <div id="panelsStayOpen-collapseThree1" class="accordion-collapse collapse show" aria-labelledby="panelsStayOpen-headingThree1">
+                  <div class="accordion-body recipe-steps">
+                    {% for j in range(0, len_of_steps[i]) %}
+                          <div class="step">
+                              <h4>Шаг {{ j+1 }}.</h4>
+                              <div class="row">
+                                  <div class="step-photo">
+                                      <img class="img-fluid" src="{{ url_for('static', filename=Steps[i][j][0][1]) }}" alt="">
+                                      <span class="step-description">
+                                          {{ Steps[i][j][0][0] }}
+                                      </span>
+                                  </div>
+                              </div>
+                          </div>
+                          <hr>
+                    {% endfor %}
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="approve-btns row justify-content-center">
+              <form method="post" action="/admin">
+                <input type="submit" value="Отклонить" name="{{ Dish[i][7] }}" class="col-2 mx-4 btn btn-danger"/>
+                <input type="submit" value="Добавить в бд" name="{{ Dish[i][7] }}" class="col-2 mx-4 btn btn-success"/>
+              </form>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  {% endfor %}
+</div>
+{% endblock %}

@@ -1,0 +1,160 @@
+{% extends 'base.html' %}
+
+{% block title %} Khach&puri - рецепты кавказской кухни {% endblock %}
+
+{% block content %}
+<div class="info-block container">
+    <div class="row justify-content-center py-5">
+        <div class="col-6 d-none d-lg-block">
+            <img class="img-fluid " src="{{ url_for('static', filename= 'img/img1.jpg') }}" alt="">
+        </div>
+        <div class="col-lg-6 col-sm-12 text-center">
+            <div>
+                <h1>Кавказская кухня</h1><hr>
+                Кавказская кухня является одной из самых разнообразных и уникальных кухонь мира, объединяющей кулинарные традиции множества народов, проживающих на Кавказе.
+                Эта кухня известна своими яркими вкусами, разнообразием блюд и использованием местных продуктов.<br>
+                Одной из особенностей кавказской кухни является ее оригинальность. Каждый регион Кавказа имеет свои уникальные блюда,
+                которые могут варьироваться от региона к региону, но всегда отличаются высоким качеством и необычными сочетаниями продуктов.
+            </div>
+        </div>
+    </div>
+</div>
+<div class = "parallax">
+    <div class="parallax-img"></div>
+</div>
+<div class="container-fluid block">
+    <div class="row justify-content-between">
+        <div class="col-3">
+            <button class="btn btn-primary btn-categories" type="button" data-bs-toggle="collapse" data-bs-target="#collapseCategories" aria-expanded="false" aria-controls="collapseCategories">
+                Категории рецептов
+            </button>
+        </div>
+        <form class="d-flex col-4" role="search">
+            <input class="form-control me-2" type="search" placeholder="Рецепт/продукт" aria-label="Search">
+            <button class="btn btn-outline-success  btn-categories" type="button">Поиск</button>
+        </form>
+    </div>
+    <div class="row">
+        <form class="col-3">
+            <div class="collapse" id="collapseCategories">
+                <div class="card card-body d-inline-block">
+                    <ul class="col-4 me-0 counties_list">
+                        {% for i in range(0, len_of_cuisines) %}
+                            <li class="form-check">
+                                <input class="form-check-input" type="checkbox" id="flexCheck{{ i }}" checked>
+                                <label class="form-check-label" for="flexCheck{{ Cuisines[i][1] }}">
+                                    {{ Cuisines[i][0] }}
+                                </label>
+                            </li>
+                        {% endfor %}
+                    </ul>
+                    <hr>
+                    <ul class="col-4 me-0 counties_list">
+                        {% for i in range(0, len_of_type) %}
+                            <li class="form-check">
+                                <input class="form-check-input" type="checkbox" id="flexCheck{{ i + len_of_cuisines }}" checked>
+                                <label class="form-check-label" for="flexCheck{{ Type_of_dish[i][1] }}">
+                                    {{ Type_of_dish[i][0] }}
+                                </label>
+                            </li>
+                        {% endfor %}
+                    </ul>
+                    <div class="col-12 d-flex justify-content-center">
+                        <button class="btn btn-primary btn-categories" onclick="UpdateMoney()" type="button">Submit form</button>
+                    </div>
+                </div>
+            </div>
+        </form>
+        <div class="col">
+            {% for i in range(0, len_of_dish) %}
+                <div class="card mb-3" style="max-width: 1040px;">
+                    <div class="row g-0">
+                        <div class="col-md-2">
+                            <img src="{{ url_for('static', filename=Dish[i][4]) }}" class="img-fluid rounded-start" alt="...">
+                        </div>
+                        <div class="col-md-10">
+                            <div class="card-body">
+                                <div class="d-flex justify-content-between">
+                                    <span class="dish-name">{{ Dish[i][0] }}</span>
+                                    <span>Рейтинг - <span class='rating'>{{ Dish[i][2] }}</span> <i class="fa-solid fa-star" style="color: #ffcf48;"></i></span>
+                                </div>
+                                <p class="card-text">{{ Dish[i][1] }}</p>
+                                <a class="card-text" href="{{ url_for('recipe_page', id_dish=Dish[i][3]) }}" method="POST"><small class="">Перейти к рецепту</small></a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+    </div>
+    <nav aria-label="..." class="d-flex justify-content-center py-3">
+        <ul class="pagination">
+            <li class="page-item">
+                <a class="page-link active" onclick="scrolling(this)">1</a>
+            </li>
+            <li class="page-item">
+                <a class="page-link" onclick="scrolling(this)">2</a>
+            </li>
+            <li class="page-item">
+                <a class="page-link" onclick="scrolling(this)">3</a>
+            </li>
+            <li class="page-item">
+                <a class="page-link" onclick="scrolling(this)">4</a>
+            </li>
+            <li class="page-item">
+                <a class="page-link" onclick="scrolling(this)">5</a>
+            </li>
+            <li class="page-item">
+                <a class="page-link" onclick="scrolling(this)">6</a>
+            </li>
+            <li class="page-item">
+                <a class="page-link" onclick="scrolling(this)">7</a>
+            </li>
+            <li class="page-item">
+                <a class="page-link" onclick="scrolling(this)">8</a>
+            </li>
+            <li class="page-item">
+                <a class="page-link" onclick="scrolling(this)">9</a>
+            </li>
+            <li class="page-item">
+                <a class="page-link" onclick="scrolling(this)">10</a>
+            </li>
+        </ul>
+    </nav>
+</div>
+<script src="{{ url_for('static', filename= 'js/script.js') }}"></script>
+<script type="text/javascript">
+    function UpdateMoney() {
+        let len_of_cuisines = {{ len_of_cuisines }};
+        let len_of_type = {{ len_of_type }};
+
+        let cuisines = [];
+        let type1 = [];
+        for (let i = 0; i < len_of_cuisines; i++)
+        {
+            cuisines.push(document.getElementById('flexCheck' + i).checked);
+        }
+
+        for (let i = len_of_cuisines; i < len_of_type + len_of_cuisines; i++)
+        {
+            type1.push(document.getElementById('flexCheck' + i).checked);
+        }
+
+
+
+        $('.ajaxProgress').show();
+        $.ajax({
+            type: "POST",
+            url: "/update_recipe",
+            async: true,
+            data: {
+                'cuisines': cuisines,
+                'type1': type1,
+            },
+            success: async function(response) {
+                alert(await response.json());
+            },
+        });
+    }
+</script>
+{% endblock %}
