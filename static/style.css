@@ -1,0 +1,150 @@
+html{
+    font-size: 16px;
+}
+
+body{
+    font-family: 'Roboto', sans-serif;
+    font-size: 24px;
+    font-weight: 400;
+    color: black;
+    min-width: 320px;
+    background-color: black;
+    height: 2800px;
+    overflow-y: scroll;
+    overflow-x: hidden;
+}
+
+/* Header */
+.full_header{
+    background-color: rgb(252,231,140);
+    justify-content: space-between;
+    display: flex;
+
+}
+.navbar{
+    margin: 0  auto;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.navbar .navbar-nav .nav-link{
+    font-weight: 400;
+    padding: 10px 30px;
+}
+
+.navbar .top-menu li a{
+    color: black;
+}
+.navbar .top-menu li a:hover{
+    color: rgb(185, 88, 40);
+    transition: all 0.3s;
+}
+
+.modal-backdrop {
+    z-index: -1;
+}
+.modal-footer {
+    justify-content: center;
+}
+
+.nav-item .btn-outline-success {
+    font-size: 18pt;
+
+}
+
+.nav-item .form-control {
+    border-color: black;
+    background-color: rgb(252,231,140);
+    color: black;
+}
+
+.nav-item .form-control:hover {
+    border-color: rgb(185, 88, 40);
+    background-color: rgb(252,231,140);
+    color: rgb(185, 88, 40);
+    filter: brightness(120%);
+    transition: all 0.3s;
+}
+
+.nav-item .btn-outline-success:hover {
+    background-color: rgb(185, 88, 40);
+    color: black;
+    transition: all 0.3s;
+}
+
+.btn-secondary .flare {
+    position: absolute;
+    top: 0;
+    height: 100%;
+    width: 45px;
+    transform: skewX(-30deg);
+    animation: flareAnimation;
+    left: -150%;
+    background: linear-gradient(90deg, rgba(255, 255, 255, 0.1), rgba(255, 255, 255, 0.4));
+    animation: flareAnimation 3s infinite ease-in;
+}
+
+@keyframes flareAnimation {
+    0% {
+        left: -150%;
+    }
+    50% {
+        left: 150%;
+    }
+    100% {
+        left: 150%;
+    }
+}
+
+.btn-secondary:hover {
+    filter: brightness(1.2);
+    background-color: #2b6fd4;
+}
+
+/* Header */
+
+/*Body*/
+.grad {
+    width: 100%;
+    height: 840px;
+    background-color: black;
+    color: rgb(252, 231, 140);
+}
+.grad .row {
+    padding: 10px;
+    overflow: hidden;
+}
+.grad .row  text-center{
+    display: flex;
+    align-items: center;
+}
+
+.grad .img {
+    height: auto;
+    max-width: 100%;
+}
+
+.parallax-img {
+    height: 100%;
+    background-attachment: fixed;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-image: url(https://mir-s3-cdn-cf.behance.net/project_modules/2800_opt_1/6f18ca101483265.5f1ffff5aa41d.jpg);
+}
+.block {
+    background-color: black;
+    width: 100%;
+    height: 10vh;
+    color: rgb(252, 231, 140);
+}
+.parallax {
+    height: 100vh;
+    width: 100vw;
+    text-align: left;
+}
+
+
+    /*background: linear-gradient(180deg, rgb(252,231,140) 0%, rgb(253,222,87) 100%);*/
+/*Body*/
